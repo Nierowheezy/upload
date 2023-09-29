@@ -3,6 +3,7 @@ const path = require('path');
 
 //Route files
 const upload = require('./routes/upload');
+const test = require('./routes/test');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 //initialize routes
 app.use('/api/v1', upload);
+app.use('/api/v1', test);
 
 app.listen(port, () => {
   console.log('Server is up on port ' + port);
