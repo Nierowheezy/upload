@@ -14,30 +14,19 @@ In the project directory, you can run:
 
 Runs the app in the development mode.
 
-## Calling the single image upload API
-
-- Open Postman and create POST request for image upload
-- URL will be [localhost:3000/uploadImage](http://localhost:3000/uploadImage)
-- select Body in menus then select form-data
-- In table write the key name `image` and select type as a `file`
-- then after select any image `(file will only png|jpg, size less then 1MB)`
-- And Send the request.
-
-## Calling the Bulk image upload API
-
-- The process will be same as the single image upload
-- Just change two things
-- URL will be [localhost:3000/uploadBulkImage](http://localhost:3000/uploadBulkImage)
-- Change kay name as a images and select multiple images.`(Select only 4 images)`
-- Send the request
-
 ## Calling the video upload API
 
-- The process will be same as the image upload
-- Just change URL [localhost:3000/uploadVideo](http://localhost:3000/uploadVideo)
-- Change kay name as a video and select video file `(file will be only mp4|mpeg-4 and size 10MB Only)`
+- Open Postman and create POST request for image upload
+- URL will be [localhost:3000/upload](http://localhost:3000/upload)
+- select Body in menus then select form-data
+- Change key name as a video and select video file `(file will be only mp4|mpeg-4 and size 20MB Only for now)`
 - Send the request
 
-# upload
+- Live URL will be [https://upload-video-3pkk.onrender.com/api/v1/upload](https://upload-video-3pkk.onrender.com/api/v1/upload)
 
-API to upload videos
+---
+
+> The save video endpoint is a post request you only need to send back your video as formdata
+> send a post request to [https://upload-video-3pkk.onrender.com/api/v1/upload](https://upload-video-3pkk.onrender.com/api/v1/upload)
+> the video saves for you automatically
+> To view the video, send a get request to this end point [https://upload-video-3pkk.onrender.com/uploads/videos/videoname.mp4](https://upload-video-3pkk.onrender.com/uploads/videos/videoname.mp4)
