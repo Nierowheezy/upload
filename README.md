@@ -1,16 +1,21 @@
 # Getting Started with File upload with multer in Node js
+
 This Demo was uploading image and video file using multer middleware.
 
 ## Project Setup
+
 In the project directory, you can run:
 
 ### `npm init`
+
 ### `npm install`
+
 ### `npm start`
 
 Runs the app in the development mode.
 
 ## Calling the single image upload API
+
 - Open Postman and create POST request for image upload
 - URL will be [localhost:3000/uploadImage](http://localhost:3000/uploadImage)
 - select Body in menus then select form-data
@@ -19,6 +24,7 @@ Runs the app in the development mode.
 - And Send the request.
 
 ## Calling the Bulk image upload API
+
 - The process will be same as the single image upload
 - Just change two things
 - URL will be [localhost:3000/uploadBulkImage](http://localhost:3000/uploadBulkImage)
@@ -26,7 +32,12 @@ Runs the app in the development mode.
 - Send the request
 
 ## Calling the video upload API
+
 - The process will be same as the image upload
 - Just change URL [localhost:3000/uploadVideo](http://localhost:3000/uploadVideo)
 - Change kay name as a video and select video file `(file will be only mp4|mpeg-4 and size 10MB Only)`
 - Send the request
+
+# upload
+
+API to upload videos
