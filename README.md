@@ -24,9 +24,11 @@ Runs the app in the development mode.
 
 - Live URL will be [https://upload-video-3pkk.onrender.com/api/v1/upload](https://upload-video-3pkk.onrender.com/api/v1/upload)
 
----
-
 > The save video endpoint is a post request you only need to send back your video as formdata
+
 > send a post request to [https://upload-video-3pkk.onrender.com/api/v1/upload](https://upload-video-3pkk.onrender.com/api/v1/upload)
 > the video saves for you automatically
+
 > To view the video, send a get request to this end point [https://upload-video-3pkk.onrender.com/uploads/videos/videoname.mp4](https://upload-video-3pkk.onrender.com/uploads/videos/videoname.mp4)
+
+> To check how to works view documentation on postman, import the collection into postman [https://documenter.getpostman.com/view/6423394/2s9YJaXiiC#6300a85c-eb6f-48fc-bf76-9dee6e5ef121](https://documenter.getpostman.com/view/6423394/2s9YJaXiiC#6300a85c-eb6f-48fc-bf76-9dee6e5ef121)
