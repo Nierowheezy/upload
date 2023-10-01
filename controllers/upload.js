@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs').promises;
 
 const Upload = require('../models/UploadVideo');
+const Session = require('../models/Session');
 
 /***
  * @desc Upload a video
@@ -53,7 +54,7 @@ exports.getAllVideos = async (req, res) => {
 };
 
 /***
- * @desc Get a videos
+ * @desc Get a video
  * @route GET /api/v1/getvideo/id
  * @access public
  *
@@ -76,24 +77,46 @@ exports.getVideo = async (req, res) => {
 
 exports.startRecording = async (req, res) => {
   //get the video format
-  const { videoFormat } = req.body;
+  const { mimetype } = req.body;
+
+  if (!mimetype) {
+    return res.status(400).json({
+      message: 'please send me a mimetype and encoding',
+    });
+  }
+
+  const session = new Session({
+    // encoding,
+    mimetype,
+  });
+
+  //save to db
+
+  const dbData = await session.save();
+
   const data = {
-    id: 1,
+    id: dbData._id,
     video: [],
-    format: videoFormat,
+    // encoding: encoding,
+    mimetype: mimetype,
   };
 
   const jsonOutput = JSON.stringify(data, null, 3);
   // write file operations
-  await fs.writeFile('video.json', jsonOutput, 'utf8');
+  await fs.writeFile(
+    `inputvideofiles/video_${dbData._id}.json`,
+    jsonOutput,
+    'utf8'
+  );
 
-  //fetch the file created and send the user the id
+  // //fetch the file created and send the user the id
 
-  const obj = await fs.readFile('video.json', 'utf8');
-  const parsedData = JSON.parse(obj);
+  // const obj = await fs.readFile('video.json', 'utf8');
+  // const parsedData = JSON.parse(obj);
 
+  // send user temp session video id
   res.json({
-    id: parsedData.id,
+    sessionId: dbData._id,
   });
 };
 
@@ -124,36 +147,45 @@ exports.sendRecording = async (req, res) => {
   //get the video format
   const { id, val } = req.body;
 
-  //fetch the file created and send the user the id
-  const obj = await fs.readFile('video.json', 'utf8');
-  const parsedData = JSON.parse(obj);
+  //check if id matches session id
 
-  //check if id matches fetched file id
+  const sessionId = await Session.findOne({ _id: id });
 
-  if (id !== parsedData.id) {
+  if (id !== sessionId.id) {
     return res.json({ msg: 'invalid id' });
   }
 
-  // console.log(val[0]);
+  const obj = await fs.readFile(
+    `inputvideofiles/video_${sessionId.id}.json`,
+    'utf8'
+  );
+
+  const parsedData = JSON.parse(obj);
 
   const valueToPush = parsedData.video;
 
-  //push values into the array
+  //push incoming chunks into the array
   const arrValues = [...valueToPush, val[0].trim()];
 
   const data = {
-    id: 1,
+    id: parsedData.id,
     video: arrValues,
-    format: parsedData.format,
+    mimetype: parsedData.mimetype,
   };
 
   //write back the file
 
   const jsonOutput = JSON.stringify(data, null, 3);
-  // write file operations
-  await fs.writeFile('video.json', jsonOutput, 'utf8');
+
+  // // write file operations
+  await fs.writeFile(
+    `inputvideofiles/video_${sessionId.id}.json`,
+    jsonOutput,
+    'utf8'
+  );
 
   res.json({
-    id: id,
+    sessionId: sessionId.id,
+    message: 'file appended successfuly',
   });
 };
