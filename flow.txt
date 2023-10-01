@@ -1,0 +1,16 @@
+When the user click on start, 
+the send you the mimetype(as the format for encoding) 
+you create a bucket for that file then respond with an id... 
+then intermittently as the frontend is recording, 
+they will have a watch event that per 15secs or something 
+they retrieve the blob from the api that they are using to do 
+the recording an add it to an array then set a timer or something
+that when the array has 3 obj init they make a post request to 
+the backend with the array of blob and the id that was initially 
+sent to them then then you the BE append it to the array you created in memory...
+and it continues until the user clicks on stop at which point they 
+send you the last blob with a statement that says completed...
+then you append the last part to the array encode it into
+the initial mimetype that they gave you, then trigger a background process 
+that transcribe and save the metadata and the file URL 
+to dB at which point you can now return to the frontend when they make the get request
