@@ -14,12 +14,21 @@ In the project directory, you can run:
 
 Runs the app in the development mode.
 
+## available endpoints
+
+- POST /api/v1/upload - Upload a video
+- GET /api/v1/getallvideos - Get all videos
+- GET /api/v1/getvideo - Get a video
+- POST /api/v1/startrecording - Start recording a video
+- POST /api/v1/sendRecording - Send recording in chunks
+- GET /api/v1/stream/video_1695992150444 Stream a video bits by bit
+
 ## Calling the video upload API
 
 - Open Postman and create POST request for image upload
 - URL will be [localhost:3000/upload](http://localhost:3000/upload)
 - select Body in menus then select form-data
-- Change key name as a video and select video file `(file will be only mp4|mpeg-4 and size 20MB Only for now)`
+- Change key name as a video and select video file `(file will be only mp4|mpeg-4)`
 - Send the request
 
 - Live URL will be [https://upload-video-3pkk.onrender.com/api/v1/upload](https://upload-video-3pkk.onrender.com/api/v1/upload)
