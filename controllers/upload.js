@@ -143,6 +143,13 @@ exports.startRecording = async (req, res) => {
 //   });
 // };
 
+/***
+ * @desc send a chunks of video
+ * @route POST /api/v1/sendrecording
+ * @access public
+ *
+ */
+
 exports.sendRecording = async (req, res) => {
   //get the video format
   const { id, val } = req.body;
@@ -187,5 +194,41 @@ exports.sendRecording = async (req, res) => {
   res.json({
     sessionId: sessionId.id,
     message: 'file appended successfuly',
+  });
+};
+
+/***
+ * @desc stop recording of video
+ * @route POST /api/v1/stoprecording
+ * @access public
+ *
+ */
+exports.stopRecording = async (req, res) => {
+  //get the video format
+  const { completed, id } = req.body;
+
+  //check if id matches session id
+
+  const sessionId = await Session.findOne({ _id: id });
+
+  if (id !== sessionId.id) {
+    return res.json({ msg: 'invalid id' });
+  }
+
+  if (!completed) {
+    return res.json({ msg: 'please complete video' });
+  }
+
+  // read final file and generate video file for it
+  // save the video file to folder
+  // save details of video into db
+  const obj = await fs.readFile(
+    `inputvideofiles/video_${sessionId.id}.json`,
+    'utf8'
+  );
+
+  res.json({
+    sessionId: sessionId.id,
+    message: 'video file created successfuly',
   });
 };
