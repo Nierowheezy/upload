@@ -1,5 +1,9 @@
 {
   "name": "file-upload",
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=14.20.1"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
